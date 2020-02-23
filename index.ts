@@ -5,14 +5,39 @@ import sample from "./sample/girl.json";
 
 //console.log(spline.at(62.5))
 
+interface Collectable<T> {
+    sample: (data: Data) => T;
+}
+
+interface Data {
+    [key: string]: any;
+}
+
+class Catcher<T> {
+    target: Data;
+    collector: Collectable<T>;
+    constructor(target: Data, collector: Collectable<T>){
+        this.target = target;
+        this.collector = collector;
+    }
+    catch(data: Data = {}){
+        for(var prop in this.target){
+            if(this.target[prop] != data[prop]){
+                return undefined;
+            }
+        }
+        return this.collector.sample(data);
+    }
+}
+
 type Gen<T> = (seed: number) => T;
 
-class Collector<T> {
+class Collector<T> implements Collectable<T> {
     gen: Gen<T>;
     constructor(gen: Gen<T>){
         this.gen = gen;
     }
-    get sample(){
+    sample(){
         return this.gen(Math.random());
     }
 }
@@ -48,6 +73,30 @@ class Collection<T> extends Collector<T> {
     }
 }
 
-const names = new Collection(sample);
+class Property<T> {
+    catchers: Catcher<T>[];
+    constructor(catchers: Catcher<T>[]){
+        this.catchers = catchers;
+    }
+    sample(data: Data = {}){
+        for(var catcher of this.catchers){
+            const sample = catcher.catch(data);
+            if(sample){
+                return sample;
+            }
+        }
+    }
+}
 
-console.log(names.sample);
+const name = new Property([
+    new Catcher({
+        birthYear: 2019,
+        gender: "female",
+    }, new Collection(sample))
+]);
+
+
+console.log(name.sample({
+    birthYear: 2019,
+    gender: "female",
+}));
