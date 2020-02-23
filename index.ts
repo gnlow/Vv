@@ -12,7 +12,7 @@ class Collector<T> {
     constructor(gen: Gen<T>){
         this.gen = gen;
     }
-    get value(){
+    get sample(){
         return this.gen(Math.random());
     }
 }
@@ -50,4 +50,4 @@ class Collection<T> extends Collector<T> {
 
 const names = new Collection(sample);
 
-console.log(names.value);
+console.log(names.sample);
