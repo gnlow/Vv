@@ -1,0 +1,19 @@
+{
+  "name": "vv",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gnlow/Vv.git"
+  },
+  "keywords": [],
+  "author": "Gnlow",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gnlow/Vv/issues"
+  },
+  "homepage": "https://github.com/gnlow/Vv#readme",
+  "dependencies": {}
+}
