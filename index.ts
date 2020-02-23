@@ -1,4 +1,5 @@
 import Spline from "./cubic-spline";
+import sample from "./sample/girl.json";
 
 //const spline = new Spline([1, 5, 10, 25, 50, 75, 90, 95, 99], [1482, 1506, 1525, 1560, 1592, 1620, 1650, 1674, 1700]);
 
@@ -18,8 +19,8 @@ class Collector<T> {
 
 class Percentile extends Collector<number> {
     constructor(samples: {percentile: number, value: number}[]){
-        let xs = [],
-            ys = [];
+        let xs: number[] = [],
+            ys: number[] = [];
         samples.forEach(sample => {
             xs.push(sample.percentile);
             ys.push(sample.value);
@@ -47,9 +48,6 @@ class Collection<T> extends Collector<T> {
     }
 }
 
-const names = new Collection([
-    {"value":"서준", "freq":2633},
-    {"value":"하준", "freq":2334},
-]);
+const names = new Collection(sample);
 
 console.log(names.value);

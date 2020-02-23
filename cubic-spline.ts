@@ -82,7 +82,7 @@ export default class Spline {
   }
 };
 
-function solve(A: number[], ks: Float64Array) {
+function solve(A: Float64Array[], ks: Float64Array) {
   const m = A.length;
   let h = 0;
   let k = 0;
@@ -139,7 +139,7 @@ function zerosMat(r: number, c: number) {
   return A;
 }
 
-function swapRows(m: number[], k: number, l: number) {
+function swapRows(m: Float64Array[], k: number, l: number) {
   let p = m[k];
   m[k] = m[l];
   m[l] = p;
